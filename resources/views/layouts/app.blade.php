@@ -17,11 +17,18 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
+    <div id="app" class="pt-5">
+        <nav class="container navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                  @auth
+                    <img src="{{url('/images/avatar_usae7z.svg')}}" alt="user" width="50" class="rounded-circle">
+                    <span class="d-lg-inline">
+                        {{ Auth::user()->name }}
+                  @else
+                        Login
+                    </span>
+                  @endauth
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -48,7 +55,7 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    <span style="font-size: 30px; font-weight: bolder" > ... </span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -68,11 +75,10 @@
                 </div>
             </div>
         </nav>
-        <script type="text/javascript" src="{!! asset('jquery-3.2.1.min.js') !!}"></script>
-        
-        <main class="py-4">
+        <main class="">
+
             @yield('content')
-          
+
         </main>
     </div>
 

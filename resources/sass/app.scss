@@ -6,3 +6,37 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+::-webkit-scrollbar {
+    width: 0.5em;
+  }
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+
+::-webkit-scrollbar-thumb {
+    background-color: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
+    outline: 1px solid slategrey;
+  }
+
+body {
+    background-color: #74EBD5;
+    background-image: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
+
+    min-height: 100vh;
+}
+
+.messages-box,
+.chat-box {
+    height: 410px!important;
+    overflow-y: scroll!important;
+}
+
+.rounded-lg {
+    border-radius: 0.5rem;
+}
+
+.rounded-0 {
+    border-radius: 0;
+}

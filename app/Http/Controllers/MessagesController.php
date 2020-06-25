@@ -46,14 +46,14 @@ class MessagesController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $conversation = new MessageComment;
         $conversation->user_id = auth()->user()->id;
         $conversation->message = $request->message;
         $conversation->message_id = $request->message_id;
         $conversation->save();
         return response()->json($conversation);
-        
+
     }
 
     /**
