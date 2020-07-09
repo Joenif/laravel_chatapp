@@ -19,30 +19,32 @@
 
             </div>
 
-            <div class=" messages-box">
-
-                <div id="chats" class="list-group rounded-0"
-                    v-bind:key="friend"
-                    v-for="friend in friends">
-                    <a v-if="friend.id != user" class="list-group-item list-group-item-action active text-white rounded-0">
-                    <div class="media">
-                        <img src="/images/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
-                        <div class="media-body ml-4">
-                            <div class="d-flex align-items-center justify-content-between mb-1"
-                                >
-                                <h6 class="mb-0">
-                                    <span>
-                                        {{friend.name}}
-                                    </span>
-                                </h6>
+            <div class="messages-box">
+                <div v-bind:key="friends"
+                     v-for="friends in users">
+                <div v-bind:key="user"
+                     v-for="user in user_messages">
+                    <div id="chats" class="list-group rounded-0"
+                         v-if="friends.id != luser && (friends.id == user.sender_id || friends.id == user.receiver_id)">
+                        <a class="list-group-item list-group-item-action ash text-white rounded-0">
+                        <div class="media">
+                            <img src="/images/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
+                            <div class="media-body ml-4">
+                                <div class="d-flex align-items-center justify-content-between mb-1">
+                                    <h6 class="mb-0">
+                                        <span class="text-primary">
+                                            {{friends.name}}
+                                        </span>
+                                    </h6>
+                                </div>
+                                <p class="font-italic mb-0 text-small">online</p>
                             </div>
-                            <p class="font-italic mb-0 text-small">online</p>
                         </div>
+                        </a>
+
                     </div>
-                    </a>
-
                 </div>
-
+                </div>
             </div>
         </div>
 
@@ -51,41 +53,20 @@
 
 <script>
     export default {
-        props: ['user_messages', 'user', 'users'],
+        props: ['user_messages', 'luser', 'users'],
         data: function() {
             return {
 
-                friends: [],
-                // chats: []
-            }
-        },
-        methods: {
-            chat_link() {
-                return this.chats.id;
-            },
-
-            isFriend() {
-
-                this.users.forEach(friends => {
-                   this.user_messages.forEach(chats => {
-                       if (friends.id != this.user && (friends.id == chats.sender_id || friends.id == chats.receiver_id)) {
-                            this.friends = Object.entries(friends);
-
-                            console.log(this.friends);
-                       }
-
-                   });
-                });
             }
         },
         created() {
-            this.isFriend();
+            // this.isFriend();
 
         }
     }
 </script>
 <style scoped>
-/* v-if="friend.id != user && (friend.id == chats.sender_id
-                                            || friend.id == chats.receiver_id)">
-                                        {{friend.name}} */
+    .ash {
+        background-color: #e9e9e9;
+    }
 </style>

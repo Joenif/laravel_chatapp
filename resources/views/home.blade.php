@@ -9,7 +9,7 @@
     <div class="row justify-content-center">
         <div class="col-md-4 px-0">
             {{-- @include('sidebar',['user_messages'=>$user_messages]) --}}
-            <side-bar :user_messages={{$user_messages}} :users={{$users}} :user={{Auth::id()}}></side-bar>
+            <side-bar :user_messages={{$user_messages}} :users={{$users}} :luser={{Auth::id()}}></side-bar>
         </div>
         <div class="col-md-8 px-0">
             <div class="card rounded-0">

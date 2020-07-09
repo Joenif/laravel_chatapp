@@ -1992,33 +1992,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['user_messages', 'user', 'users'],
+  props: ['user_messages', 'luser', 'users'],
   data: function data() {
-    return {
-      friends: [] // chats: []
-
+    return {// loggedinUser = this.loggedinUser
     };
   },
-  methods: {
-    chat_link: function chat_link() {
-      return this.chats.id;
-    },
-    isFriend: function isFriend() {
-      var _this = this;
-
-      this.users.forEach(function (friends) {
-        _this.user_messages.forEach(function (chats) {
-          if (friends.id != _this.user && (friends.id == chats.sender_id || friends.id == chats.receiver_id)) {
-            _this.friends = Object.entries(friends);
-            console.log(_this.friends);
-          }
-        });
-      });
-    }
+  methods: {// chat_link() {
+    //     return this.chats.id;
+    // }
   },
-  created: function created() {
-    this.isFriend();
+  created: function created() {// this.isFriend();
   }
 });
 
@@ -6466,7 +6453,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* v-if=\"friend.id != user && (friend.id == chats.sender_id\n                                            || friend.id == chats.receiver_id)\">\n                                        {{friend.name}} */\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* v-if=\"friend.id != user && (friend.id == chats.sender_id\n                                            || friend.id == chats.receiver_id)\">\n                                        {{friend.name}} */\n.ash[data-v-81fbb27e] {\n        background-color: #e9e9e9;\n}\n", ""]);
 
 // exports
 
@@ -38255,121 +38242,8 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container px-0" }, [
-    _c("div", { staticClass: "bg-white" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: " messages-box" },
-        _vm._l(_vm.friends, function(friend) {
-          return _c(
-            "div",
-            {
-              key: friend,
-              staticClass: "list-group rounded-0",
-              attrs: { id: "chats" }
-            },
-            [
-              friend.id != _vm.user
-                ? _c(
-                    "a",
-                    {
-                      staticClass:
-                        "list-group-item list-group-item-action active text-white rounded-0"
-                    },
-                    [
-                      _c("div", { staticClass: "media" }, [
-                        _c("img", {
-                          staticClass: "rounded-circle",
-                          attrs: {
-                            src: "/images/avatar_usae7z.svg",
-                            alt: "user",
-                            width: "50"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "media-body ml-4" }, [
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "d-flex align-items-center justify-content-between mb-1"
-                            },
-                            [
-                              _c("h6", { staticClass: "mb-0" }, [
-                                _c("span", [
-                                  _vm._v(
-                                    "\n                                    " +
-                                      _vm._s(friend.name) +
-                                      "\n                                "
-                                  )
-                                ])
-                              ])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "p",
-                            { staticClass: "font-italic mb-0 text-small" },
-                            [_vm._v("online")]
-                          )
-                        ])
-                      ])
-                    ]
-                  )
-                : _vm._e()
-            ]
-          )
-        }),
-        0
-      )
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card" }, [
-      _c(
-        "div",
-        { staticClass: "card-header bg-gray px-4 pt-3 pb-2  bg-light" },
-        [
-          _c("ul", { staticClass: "nav nav-tabs card-header-tabs" }, [
-            _c("li", { staticClass: "nav-item mb-0" }, [
-              _c(
-                "a",
-                { staticClass: "nav-link active", attrs: { href: "#chats" } },
-                [_vm._v("Chats")]
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "nav-item mb-0" }, [
-              _c(
-                "a",
-                { staticClass: "nav-link", attrs: { href: "#contacts" } },
-                [_vm._v("Contacts")]
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "nav-item mb-0" }, [
-              _c("a", { staticClass: "nav-link", attrs: { href: "#groups" } }, [
-                _vm._v("Groups")
-              ])
-            ])
-          ])
-        ]
-      )
-    ])
-  }
-]
-render._withStripped = true
+var render = function () {}
+var staticRenderFns = []
 
 
 
