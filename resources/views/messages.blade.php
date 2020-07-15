@@ -3,11 +3,11 @@
 @section('content')
 <div class="container">
     <div class="row rounded-lg overflow-hidden shadow">
-        <div class="col-md-4">
-            <side-bar :messages={{user_messages}}></side-bar>
+        <div class="col-md-4 px-0">
+            <side-bar :user_messages={{$user_messages}} :users={{$users ?? ''}} :luser={{Auth::id()}}></side-bar>
             {{-- @include('sidebar',['user_messages'=>$user_messages]) --}}
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 px-0">
             <div class="card">
                 <div class="card-header">Chat </div>
                 <div class="card-body">

@@ -11,14 +11,14 @@
 |
 */
 
-Route::get('/', 'Auth\LoginController@showLoginForm');
+Route::get('/', 'HomeController@index')->name('home');
 
-// route used for chat
-Route::resource('messages', 'MessagesController');
-Route::post('storeConversations', 'MessagesController@store')->name('storeConversations');
-Route::get('getConversations', 'MessagesController@getConversations')->name('getConversations');
-// end of route
+// routes used for chat
+Route::resource('messages', 'MessagesController', ['only' => ['store']]);
+// Route::post('storeConversations', 'MessagesController@store')->name('storeConversations');
+Route::get('getMessages', 'MessagesController@getMessages')->name('getMessages');
+// end of routes
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');

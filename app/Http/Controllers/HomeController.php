@@ -32,4 +32,9 @@ class HomeController extends Controller
         return view('home', compact('user_messages','users'));
     }
 
+    public function users() {
+        $users = User::all();
+        return $users;
+    }
+
 }

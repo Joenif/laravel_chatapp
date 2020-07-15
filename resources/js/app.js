@@ -13,7 +13,7 @@ Vue.use(VueRouter);
 
 
 let routes = [
-    // { path: '/profile', component: require('./components/Profile.vue').default},
+    // { path: '/messages', component: require('./components/messages.vue').default},
     // { path: '*', component: require('./components/404Page.vue').default}
   ];
 
@@ -21,20 +21,11 @@ const router = new VueRouter({
     mode: 'history',
     routes // short for `routes: routes`
 });
-
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+window.Fire = new Vue();
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('side-bar', require('./components/Sidebar.vue').default);
+Vue.component('chat-box', require('./components/Chat.vue').default);
 
 
 /**

@@ -20,13 +20,14 @@
             </div>
 
             <div class="messages-box">
-                <div v-bind:key="friends"
+                <div v-bind:key="friends.id"
                      v-for="friends in users">
-                <div v-bind:key="user"
+                <div v-bind:key="user.id"
                      v-for="user in user_messages">
-                    <div id="chats" class="list-group rounded-0"
+                    <div v-if="user.sender_id != user.receiver_id" class="list-group rounded-0">
+                    <div id="chats"
                          v-if="friends.id != luser && (friends.id == user.sender_id || friends.id == user.receiver_id)">
-                        <a class="list-group-item list-group-item-action ash text-white rounded-0">
+                        <a @click="$emit('to-message-box', friends.id)" class="list-group-item list-group-item-action chats-tab rounded-0">
                         <div class="media">
                             <img src="/images/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
                             <div class="media-body ml-4">
@@ -37,11 +38,11 @@
                                         </span>
                                     </h6>
                                 </div>
-                                <p class="font-italic mb-0 text-small">online</p>
+                                <p class="font-italic mb-0 text-small text-primary">online</p>
                             </div>
                         </div>
                         </a>
-
+                    </div>
                     </div>
                 </div>
                 </div>
@@ -53,11 +54,15 @@
 
 <script>
     export default {
+        name: "Sidebar",
         props: ['user_messages', 'luser', 'users'],
         data: function() {
             return {
 
             }
+        },
+        methods: {
+
         },
         created() {
             // this.isFriend();
@@ -66,7 +71,8 @@
     }
 </script>
 <style scoped>
-    .ash {
+    .chats-tab {
         background-color: #e9e9e9;
+        cursor: pointer
     }
 </style>

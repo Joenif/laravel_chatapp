@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Message;
 use App\MessageComment;
 use Illuminate\Http\Request;
@@ -29,16 +30,6 @@ class MessagesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -47,31 +38,26 @@ class MessagesController extends Controller
     public function store(Request $request)
     {
 
-        $conversation = new MessageComment;
-        $conversation->user_id = auth()->user()->id;
-        $conversation->message = $request->message;
-        $conversation->message_id = $request->message_id;
-        $conversation->save();
+        $conversation = auth()->user()->messagecomments()->create([
+            'messages' => $request->message,
+            'message_id' => $request->message_id
+        ]);
+        // $conversation = new MessageComment;
+        // $conversation->user_id = auth()->user()->id;
+        // $conversation->message = $request->message;
+        // $conversation->message_id = $request->message_id;
+        // $conversation->save();
         return response()->json($conversation);
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-       $conversations =  MessageComment::where(['message_id'=>1])->get();
+    public function getConversationUsers() {
         $user_id = auth()->id();
-        $user_messages =  Message::whereSender_idOrReceiver_id($user_id, $user_id)->get();
-       return view('messages', compact('user_messages', 'conversations','id' ));
-
+        $conversationUsers =  Message::whereSender_idOrReceiver_id($user_id, $user_id)->get();
+        return $conversationUsers;
     }
 
-     public function getConversations(Request $request)
+     public function getMessages(Request $request)
     {
        $conversations =  MessageComment::where(['message_id'=>$request->id])->with('user')->get();
         return $conversations;
