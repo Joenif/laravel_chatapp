@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Message;
+use App\Conversations;
 use App\MessageComment;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -41,6 +42,10 @@ class User extends Authenticatable
 
     public function messages() {
         return $this->hasMany(Message::class, 'id', 'sender_id');
+    }
+
+    public function conversations() {
+        return $this->hasMany(Conversations::class);
     }
 
     public function messagecomments() {

@@ -59,8 +59,9 @@ class MessagesController extends Controller
 
      public function getMessages(Request $request)
     {
-       $conversations =  MessageComment::where(['message_id'=>$request->id])->with('user')->get();
-        return $conversations;
+        $conversations =  MessageComment::where('message_id', $request->id)->with('user')->get();
+        return response()->json($conversations);
+        // return ['All Good'];
     }
 
 

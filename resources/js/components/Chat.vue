@@ -1,22 +1,21 @@
 <template>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-4 px-0">
-                <side-bar v-on:to-message-box="toMessageBox" :user_messages= user_messages :users= users :luser= luser></side-bar>
+            <div class="col-md-3 px-0">
+                <side-bar v-on:to-message-box="toMessageBox" :users="users" :user_messages= user_messages :luser= luser></side-bar>
             </div>
-            <div v-show="noConversation" class="col-md-8 px-0">
-                <div class="card rounded-0">
-                    <div class="card-header px-4 py-3">
+            <div class="col-md-9 px-0">
+                <div v-show="noConversation" class="message-body rounded-0">
+                    <div class="message-top px-4 py-3">
                         <p class="mb-0">Chat</p>
                     </div>
 
-                    <div class="card-body chat-box">
+                    <div class="message-chat chat-box">
                         Continue chat or start a new Conversation
                     </div>
                 </div>
-
+                <component v-on:message-box="$emit('message-box', id)" :users="users" :allMessages="allMessages" :is="currentTabComponent"></component>
             </div>
-            <component v-on:message-box="$emit('message-box', id)" :is="currentTabComponent"></component>
 
         </div>
 
@@ -33,12 +32,14 @@
             conversationList
         },
 
-        props: ['user_messages', 'luser', 'users'],
+        props: ['user_messages', 'luser'],
 
         data: function() {
             return {
                 openChat: false,
-                noConversation: true
+                noConversation: true,
+                allMessages: [],
+                users: []
             }
         },
 
@@ -54,6 +55,22 @@
         },
 
         methods: {
+            fetchUsers() {
+                axios.get('users').then(response => {
+                this.users = response.data
+                }).catch(()=> {
+
+                });
+            },
+            fetchMessages() {
+                axios.get('conversations')
+                    .then(response => {
+                        this.allMessages = response.data
+                    })
+                    .catch((err) => {
+                        console.log('Error: '+err);
+                    });
+            },
 
             toMessageBox(id) {
                 Fire.$emit('message-box', id);
@@ -62,7 +79,8 @@
 
         },
         created() {
-
+            this.fetchMessages();
+            this.fetchUsers();
         }
 
     }

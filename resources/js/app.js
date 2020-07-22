@@ -8,9 +8,19 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import moment from 'moment';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
+Vue.filter('meessageTime', function(sent) {
+    return moment(sent).format('LT');
+});
+
+// Vue.filter('meessageDay', function(sent) {
+//     if(moment(sent).startOf('day').fromNow()) {
+//         return moment(sent).format('MMM Do YY');
+//     }
+// });
 
 let routes = [
     // { path: '/messages', component: require('./components/messages.vue').default},

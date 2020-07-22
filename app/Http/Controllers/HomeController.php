@@ -26,15 +26,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users = User::all();
         $user_id = auth()->id();
         $user_messages =  Message::whereSender_idOrReceiver_id($user_id, $user_id)->get();
-        return view('home', compact('user_messages','users'));
-    }
-
-    public function users() {
-        $users = User::all();
-        return $users;
+        return view('home', compact('user_messages'));
     }
 
 }
