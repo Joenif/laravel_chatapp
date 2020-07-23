@@ -2,7 +2,9 @@
     <div class="tab-content">
         <div class="tab-pane message-body active" id="inbox-message-1">
             <div class="message-top">
-                <a class="btn btn btn-success new-message"> <i class="fas fa-envelope"></i> New Message </a>
+                <a class="btn leave-message-box"> <i class="fas fa-arrow-left"></i></a>
+                <img alt="" class="img-circle medium-image" src="/images/avatar_usae7z.svg">
+                <h4></h4>
             </div>
 
             <div class="message-chat">
@@ -35,8 +37,8 @@
                             <div class="message-body">
                                 <div class="message-body-inner">
                                     <div class="message-info">
-                                        <h4> {{friends.name}} </h4>
-                                        <h5> <i class="fas fa-clock-o"></i> 2:28 PM </h5>
+                                        <h4> Me </h4>
+                                        <h5> <i class="fas fa-clock-o"></i> {{message.created_at | meessageTime}} </h5>
                                     </div>
                                     <hr>
                                     <div class="message-text">
@@ -52,18 +54,22 @@
                 </div>
 
                 <div class="chat-footer">
-                    <textarea class="send-message-text"></textarea>
+                    <textarea class="send-message-text" v-model="message"  placeholder="Enter Message" @keyup.enter="sendMessage"></textarea>
+                    <label class="upload-file">
+                        <input type="file" required="">
+                        <i class="fas fa-emoji"></i>
+                    </label>
                     <label class="upload-file">
                         <input type="file" required="">
                         <i class="fas fa-paperclip"></i>
                     </label>
-                    <button type="button" class="send-message-button btn-info"> <i class="fa fa-send"></i> </button>
+                    <button @click="sendMessage" type="button" class="send-message-button btn-info"> <i class="fas fa-paper-plane"></i>
+                    </button>
                 </div>
             </div>
         </div>
 
     </div>
-
 </template>
 
 <script>
@@ -85,7 +91,9 @@
         },
 
         methods: {
+            sendMessage() {
 
+            }
         },
 
         created() {

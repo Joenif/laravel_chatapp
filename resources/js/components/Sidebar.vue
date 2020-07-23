@@ -38,7 +38,7 @@
                         <div class="contacts-outter"
                             v-if="friends.id != luser">
                             <ul class="list-unstyled contacts">
-                                <li @click="$emit('to-message-box', friends.id)" class="d-flex active">
+                                <li @click="$emit('to-message-box', friends.id)" :class="{'active' : isActive}" class="d-flex">
                                     <div class="message-count"> 1 </div>
                                     <img alt="" class="img-circle medium-image d-inline-flex" src="/images/avatar_usae7z.svg" width="50">
                                     <div class="vcentered info-combo">
@@ -102,8 +102,15 @@
         props: ['user_messages', 'luser', 'users'],
         data: function() {
             return {
-                
+                isActive: false
             }
+        },
+        methods: {
+            // activeFriend(id) {
+            //     this.isActive = true;
+            //     Fire.$emit('to-message-box', id);
+            //     console.log(id);
+            // }
         },
         created() {
 

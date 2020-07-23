@@ -2134,7 +2134,15 @@ __webpack_require__.r(__webpack_exports__);
   name: "Sidebar",
   props: ['user_messages', 'luser', 'users'],
   data: function data() {
-    return {};
+    return {
+      isActive: false
+    };
+  },
+  methods: {// activeFriend(id) {
+    //     this.isActive = true;
+    //     Fire.$emit('to-message-box', id);
+    //     console.log(id);
+    // }
   },
   created: function created() {}
 });
@@ -2218,6 +2226,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'conversationList',
   props: ['allMessages', 'users'],
@@ -2229,7 +2243,9 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     friend: function friend(val) {}
   },
-  methods: {},
+  methods: {
+    sendMessage: function sendMessage() {}
+  },
   created: function created() {
     var _this = this;
 
@@ -59763,7 +59779,8 @@ var render = function() {
                       _c(
                         "li",
                         {
-                          staticClass: "d-flex active",
+                          staticClass: "d-flex",
+                          class: { active: _vm.isActive },
                           on: {
                             click: function($event) {
                               return _vm.$emit("to-message-box", friends.id)
@@ -59949,11 +59966,20 @@ var render = function() {
                           _c("div", { staticClass: "message-body" }, [
                             _c("div", { staticClass: "message-body-inner" }, [
                               _c("div", { staticClass: "message-info" }, [
-                                _c("h4", [
-                                  _vm._v(" " + _vm._s(friends.name) + " ")
-                                ]),
+                                _c("h4", [_vm._v(" Me ")]),
                                 _vm._v(" "),
-                                _vm._m(1, true)
+                                _c("h5", [
+                                  _c("i", { staticClass: "fas fa-clock-o" }),
+                                  _vm._v(
+                                    " " +
+                                      _vm._s(
+                                        _vm._f("meessageTime")(
+                                          message.created_at
+                                        )
+                                      ) +
+                                      " "
+                                  )
+                                ])
                               ]),
                               _vm._v(" "),
                               _c("hr"),
@@ -59979,7 +60005,52 @@ var render = function() {
             0
           ),
           _vm._v(" "),
-          _vm._m(2)
+          _c("div", { staticClass: "chat-footer" }, [
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.message,
+                  expression: "message"
+                }
+              ],
+              staticClass: "send-message-text",
+              attrs: { placeholder: "Enter Message" },
+              domProps: { value: _vm.message },
+              on: {
+                keyup: function($event) {
+                  if (
+                    !$event.type.indexOf("key") &&
+                    _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                  ) {
+                    return null
+                  }
+                  return _vm.sendMessage($event)
+                },
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.message = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm._m(1),
+            _vm._v(" "),
+            _vm._m(2),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "send-message-button btn-info",
+                attrs: { type: "button" },
+                on: { click: _vm.sendMessage }
+              },
+              [_c("i", { staticClass: "fas fa-paper-plane" })]
+            )
+          ])
         ])
       ]
     )
@@ -59991,42 +60062,36 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "message-top" }, [
-      _c("a", { staticClass: "btn btn btn-success new-message" }, [
-        _c("i", { staticClass: "fas fa-envelope" }),
-        _vm._v(" New Message ")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h5", [
-      _c("i", { staticClass: "fas fa-clock-o" }),
-      _vm._v(" 2:28 PM ")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "chat-footer" }, [
-      _c("textarea", { staticClass: "send-message-text" }),
-      _vm._v(" "),
-      _c("label", { staticClass: "upload-file" }, [
-        _c("input", { attrs: { type: "file", required: "" } }),
-        _vm._v(" "),
-        _c("i", { staticClass: "fas fa-paperclip" })
+      _c("a", { staticClass: "btn leave-message-box" }, [
+        _c("i", { staticClass: "fas fa-arrow-left" })
       ]),
       _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "send-message-button btn-info",
-          attrs: { type: "button" }
-        },
-        [_c("i", { staticClass: "fa fa-send" })]
-      )
+      _c("img", {
+        staticClass: "img-circle medium-image",
+        attrs: { alt: "", src: "/images/avatar_usae7z.svg" }
+      }),
+      _vm._v(" "),
+      _c("h4")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "upload-file" }, [
+      _c("input", { attrs: { type: "file", required: "" } }),
+      _vm._v(" "),
+      _c("i", { staticClass: "fas fa-emoji" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "upload-file" }, [
+      _c("input", { attrs: { type: "file", required: "" } }),
+      _vm._v(" "),
+      _c("i", { staticClass: "fas fa-paperclip" })
     ])
   }
 ]
