@@ -2,7 +2,12 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-3 px-0">
-                <side-bar v-on:to-message-box="toMessageBox" :users="users" :user_messages= user_messages :luser= luser></side-bar>
+                <side-bar
+                    v-on:to-message-box="toMessageBox"
+                    :users="users"
+                    :user_messages= user_messages
+                    :luser= luser>
+                </side-bar>
             </div>
             <div class="col-md-9 px-0">
                 <div v-show="noConversation" class="message-body rounded-0">
@@ -14,7 +19,13 @@
                         Continue chat or start a new Conversation
                     </div>
                 </div>
-                <component v-on:message-box="$emit('message-box', id)" :users="users" :allMessages="allMessages" :is="currentTabComponent"></component>
+                <component
+                    v-on:message-box="$emit('message-box', id)"
+                    v-on:exit="exitMessageBox"
+                    :users="users"
+                    :allMessages="allMessages"
+                    :is="currentTabComponent">
+                </component>
             </div>
 
         </div>
@@ -76,6 +87,11 @@
                 Fire.$emit('message-box', id);
                 this.openChat = true
             },
+
+            exitMessageBox() {
+                this.openChat = false;
+                this.noConversation = true
+            }
 
         },
         created() {

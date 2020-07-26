@@ -4,15 +4,16 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Conversations;
+use App\ConversationUsers;
 use Illuminate\Http\Request;
 
 class ConversationController extends Controller
 {
 
-    // public function __construct__()
-    // {
-    //     return ;
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * Display a listing of the resource.
@@ -40,12 +41,17 @@ class ConversationController extends Controller
      */
     public function store(Request $request)
     {
-        $message = Conversations::create([
-            'messages' => $request->messages,
-            'user_id' => auth()->id(),
-            // 'user_id' => $request->user,
-            'receiver_id' => $request->receiver
-        ]);
+        $conversationUsers = ConversationUsers::where(['sender_id' => auth()->id(), 'receiver_id' => $request->receiver])
+                                                ->orWhere(['receiver_id' => auth()->id(), 'sender_id' => $request->receiver])->first();
+        if(request()->has('file')) {
+            //
+        } else {
+            $message = Conversations::create([
+                'messages' => $request->message,
+                'receiver_id' => $request->receiver,
+                'sender_id' => auth()->id()
+            ]);
+        }
 
         return response()->json($message, 201);
     }

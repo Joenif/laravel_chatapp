@@ -1934,6 +1934,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1980,6 +1991,10 @@ __webpack_require__.r(__webpack_exports__);
     toMessageBox: function toMessageBox(id) {
       Fire.$emit('message-box', id);
       this.openChat = true;
+    },
+    exitMessageBox: function exitMessageBox() {
+      this.openChat = false;
+      this.noConversation = true;
     }
   },
   created: function created() {
@@ -2232,25 +2247,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'conversationList',
   props: ['allMessages', 'users'],
   data: function data() {
     return {
-      friend: ''
+      friend: '',
+      message: ''
     };
   },
   watch: {
     friend: function friend(val) {}
   },
   methods: {
-    sendMessage: function sendMessage() {}
+    exitMessage: function exitMessage() {
+      Fire.$emit('exit');
+    },
+    sendMessage: function sendMessage() {
+      var _this = this;
+
+      if (this.message != '') {
+        axios.post('/conversations/', {
+          message: this.message,
+          receiver: this.friend
+        }).then(function (response) {
+          _this.message = '';
+          console.log(response.data);
+        })["catch"](function (err) {
+          console.log('Error: ' + err);
+        });
+      }
+    }
   },
   created: function created() {
-    var _this = this;
+    var _this2 = this;
 
     Fire.$on('message-box', function (id) {
-      _this.friend = id;
+      _this2.friend = id;
     }); // this.debouncedFetchMessages = _.debounce(this.fetchMessages(this.message_id), 500)
   }
 });
@@ -59593,7 +59628,8 @@ var render = function() {
             on: {
               "message-box": function($event) {
                 return _vm.$emit("message-box", _vm.id)
-              }
+              },
+              exit: _vm.exitMessageBox
             }
           })
         ],
@@ -59903,19 +59939,33 @@ var render = function() {
         attrs: { id: "inbox-message-1" }
       },
       [
-        _vm._m(0),
+        _c("div", { staticClass: "message-top" }, [
+          _c("a", { staticClass: "btn leave-message-box" }, [
+            _c("i", {
+              staticClass: "fas fa-arrow-left",
+              on: { click: _vm.exitMessage }
+            })
+          ]),
+          _vm._v(" "),
+          _c("img", {
+            staticClass: "img-circle medium-image",
+            attrs: { alt: "", src: "/images/avatar_usae7z.svg" }
+          }),
+          _vm._v(" "),
+          _c("h4")
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "message-chat" }, [
           _c(
             "div",
             { staticClass: "chat-body" },
-            _vm._l(_vm.users, function(friends) {
+            _vm._l(_vm.users, function(user) {
               return _c(
                 "div",
-                { key: friends.id },
+                { key: user.id },
                 _vm._l(_vm.allMessages, function(message) {
                   return _c("div", { key: message.id }, [
-                    _vm.friend == message.sender_id && _vm.friend == friends.id
+                    _vm.friend == message.sender_id && _vm.friend == user.id
                       ? _c("div", { staticClass: "message info" }, [
                           _c("img", {
                             staticClass: "img-circle medium-image",
@@ -59924,9 +59974,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("div", { staticClass: "message-body" }, [
                             _c("div", { staticClass: "message-info" }, [
-                              _c("h4", [
-                                _vm._v(" " + _vm._s(friends.name) + " ")
-                              ]),
+                              _c("h4", [_vm._v(" " + _vm._s(user.name) + " ")]),
                               _vm._v(" "),
                               _c("h5", [
                                 _c("i", { staticClass: "fas fa-clock-o" }),
@@ -59955,8 +60003,7 @@ var render = function() {
                         ])
                       : _vm._e(),
                     _vm._v(" "),
-                    _vm.friend == message.receiver_id &&
-                    _vm.friend == friends.id
+                    _vm.friend == message.receiver_id && _vm.friend == user.id
                       ? _c("div", { staticClass: "message my-message" }, [
                           _c("img", {
                             staticClass: "img-circle medium-image",
@@ -60019,15 +60066,6 @@ var render = function() {
               attrs: { placeholder: "Enter Message" },
               domProps: { value: _vm.message },
               on: {
-                keyup: function($event) {
-                  if (
-                    !$event.type.indexOf("key") &&
-                    _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-                  ) {
-                    return null
-                  }
-                  return _vm.sendMessage($event)
-                },
                 input: function($event) {
                   if ($event.target.composing) {
                     return
@@ -60037,9 +60075,9 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _vm._m(1),
+            _vm._m(0),
             _vm._v(" "),
-            _vm._m(2),
+            _vm._m(1),
             _vm._v(" "),
             _c(
               "button",
@@ -60061,27 +60099,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "message-top" }, [
-      _c("a", { staticClass: "btn leave-message-box" }, [
-        _c("i", { staticClass: "fas fa-arrow-left" })
-      ]),
-      _vm._v(" "),
-      _c("img", {
-        staticClass: "img-circle medium-image",
-        attrs: { alt: "", src: "/images/avatar_usae7z.svg" }
-      }),
-      _vm._v(" "),
-      _c("h4")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("label", { staticClass: "upload-file" }, [
-      _c("input", { attrs: { type: "file", required: "" } }),
-      _vm._v(" "),
-      _c("i", { staticClass: "fas fa-emoji" })
+      _c("i", { staticClass: "fas fa-smile-o" })
     ])
   },
   function() {

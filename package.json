@@ -28,6 +28,8 @@
         "laravel-echo": "^1.8.0",
         "moment": "^2.26.0",
         "pusher-js": "^6.0.3",
-        "vue-router": "^3.3.4"
+        "v-emoji-picker": "^2.3.0",
+        "vue-router": "^3.3.4",
+        "vue-upload-component": "^2.8.20"
     }
 }
